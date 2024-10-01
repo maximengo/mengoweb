@@ -1,0 +1,184 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+
+import "@fontsource-variable/nunito-sans";
+
+import Header from "../layouts/Header.astro";
+import Footer from "../layouts/Footer.astro";
+import Contacto from "../components/Contacto.astro";
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+
+		<style>
+			body {
+				font-family: "Nunito Sans Variable", sans-serif;
+			}
+
+			.bg {
+				position: fixed;
+				top: 0px;
+				left: 0px;
+				width: 100%;
+				height: 100%;
+				opacity: 0.03;
+				background-image: linear-gradient(
+						30deg,
+						#18191a 12%,
+						transparent 12.5%,
+						transparent 87%,
+						#18191a 87.5%,
+						#18191a
+					),
+					linear-gradient(
+						150deg,
+						#18191a 12%,
+						transparent 12.5%,
+						transparent 87%,
+						#18191a 87.5%,
+						#18191a
+					),
+					linear-gradient(
+						30deg,
+						#18191a 12%,
+						transparent 12.5%,
+						transparent 87%,
+						#18191a 87.5%,
+						#18191a
+					),
+					linear-gradient(
+						150deg,
+						#18191a 12%,
+						transparent 12.5%,
+						transparent 87%,
+						#18191a 87.5%,
+						#18191a
+					),
+					linear-gradient(
+						60deg,
+						#18191a77 25%,
+						transparent 25.5%,
+						transparent 75%,
+						#18191a77 75%,
+						#18191a77
+					),
+					linear-gradient(
+						60deg,
+						#18191a77 25%,
+						transparent 25.5%,
+						transparent 75%,
+						#18191a77 75%,
+						#18191a77
+					);
+				background-size: 48px 84px;
+				background-position:
+					0 0,
+					0 0,
+					24px 42px,
+					24px 42px,
+					0 0,
+					24px 42px;
+			}
+
+			.dark .bg {
+				opacity: 0.5;
+				z-index: 10;
+				pointer-events: none;
+
+				background-image: linear-gradient(
+						30deg,
+						#1c1e22 12%,
+						transparent 12.5%,
+						transparent 87%,
+						#1c1e22 87.5%,
+						#1c1e22
+					),
+					linear-gradient(
+						150deg,
+						#1c1e22 12%,
+						transparent 12.5%,
+						transparent 87%,
+						#1c1e22 87.5%,
+						#1c1e22
+					),
+					linear-gradient(
+						30deg,
+						#1c1e22 12%,
+						transparent 12.5%,
+						transparent 87%,
+						#1c1e22 87.5%,
+						#1c1e22
+					),
+					linear-gradient(
+						150deg,
+						#1c1e22 12%,
+						transparent 12.5%,
+						transparent 87%,
+						#1c1e22 87.5%,
+						#1c1e22
+					),
+					linear-gradient(
+						60deg,
+						rgba(28, 30, 34, 0.5) 25%,
+						transparent 25.5%,
+						transparent 75%,
+						rgba(28, 30, 34, 0.5) 75%,
+						rgba(28, 30, 34, 0.5)
+					),
+					linear-gradient(
+						60deg,
+						rgba(28, 30, 34, 0.5) 25%,
+						transparent 25.5%,
+						transparent 75%,
+						rgba(28, 30, 34, 0.5) 75%,
+						rgba(28, 30, 34, 0.5)
+					);
+			}
+		</style>
+		<script is:inline>
+			const theme = localStorage.getItem("theme");
+
+			if (
+				theme === "dark" ||
+				(!theme &&
+					window.matchMedia("(prefers-color-scheme: dark)").matches)
+			) {
+				document.documentElement.classList.add("dark");
+			}
+		</script>
+	</head>
+	<body
+		class="relative h-screen overflow-y-auto overflow-x-hidden bg-white dark:bg-[#18191a] z-0"
+	>
+		<div
+			class="mx-auto flex max-w-screen-xl flex-col justify-between gap-4 p-4 lg:gap-6 lg:p-6"
+		>
+			<Header />
+			<slot />
+			<Footer />
+		</div>
+
+		<div class="bg"></div>
+
+
+		<Contacto/>
+
+		<script
+			is:inline
+			src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"
+		></script>
+		<script src="../js/main"></script>
+	</body>
+</html>

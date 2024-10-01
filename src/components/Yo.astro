@@ -1,0 +1,60 @@
+---
+import Social from "../components/SocialButton.astro";
+---
+
+<div class="w-full h-56 overflow-hidden rounded-lg">
+    <img
+        src="../images/maxi-mengoni.jpeg"
+        class="h-full w-full object-cover object-center"
+        alt="Foto de Maxi Mengoni"
+    />
+</div>
+
+<div class="mt-6">
+    <h1 class="text-2xl font-light mb-2">
+        ¡Hola! Soy <strong class="font-bold">Maxi <span class="text-cyan-600">Mengo</span>ni.</strong
+        >
+    </h1>
+    <p class="dark:text-gray-300">
+        <strong>Programador Full Stack </strong> orientado a páginas web con más
+        de 6 años de experiencia.
+    </p>
+</div>
+<div class="sociales flex gap-2 pt-3 mt-auto">
+    <Social link="https://www.linkedin.com/in/maximiliano-mengoni-2965ab4b/" title="Linkedin" clase="bg-[#0077b5] hover:bg-[#369bd0]">
+        <svg
+            class="w-5 h-5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+        >
+            <path
+                fill-rule="evenodd"
+                d="M12.51 8.796v1.697a3.738 3.738 0 0 1 3.288-1.684c3.455 0 4.202 2.16 4.202 4.97V19.5h-3.2v-5.072c0-1.21-.244-2.766-2.128-2.766-1.827 0-2.139 1.317-2.139 2.676V19.5h-3.19V8.796h3.168ZM7.2 6.106a1.61 1.61 0 0 1-.988 1.483 1.595 1.595 0 0 1-1.743-.348A1.607 1.607 0 0 1 5.6 4.5a1.601 1.601 0 0 1 1.6 1.606Z"
+                clip-rule="evenodd"></path>
+            <path d="M7.2 8.809H4V19.5h3.2V8.809Z"></path>
+        </svg>
+    </Social>
+
+    <Social link="mailto:mengo@hotmail.com.ar" title="Email">
+        <svg
+            class="w-5 h-5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+        >
+            <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-width="2"
+                d="m3.5 5.5 7.893 6.036a1 1 0 0 0 1.214 0L20.5 5.5M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"
+            ></path>
+        </svg>
+    </Social>
+</div>

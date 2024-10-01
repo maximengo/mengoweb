@@ -1,0 +1,45 @@
+---
+import { getCollection } from "astro:content";
+const proyectos = await getCollection("proyectos");
+---
+
+<div class="z-20">
+    <h3 class="text-2xl font-bold mb-4 text-slate-800 dark:text-white flex justify-between">
+        Últimos proyectos
+    </h3>
+    <section class="grid gap-4 lg:gap-6 grid-cols-1 lg:grid-cols-3">
+        {
+            proyectos.map((proyecto) => {
+                const { slug, data } = proyecto;
+                const { title, img, cat } = data;
+                return (
+                    <div data-aos="fade-down" class="border border-gray-300   dark:border-gray-600 rounded-lg transition-all flex flex-col overflow-hidden shadow-sm">
+                        <a href={`/proyecto/${slug}`} class="group">
+                            <div class="max-w-2xl group mx-auto relative">
+                                <span class="bg-blue-200 absolute top-3 left-3 z-20 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                                    {cat}
+                                </span>
+                                <img
+                                    transition:name={`img-${slug}`}
+                                    src={`images/proyectos/${img}`}
+                                    class="h-full  w-full object-cover object-center border-b border-slate-700 dark:border-white"
+                                    alt={`Foto del proyecto de ${title}`}
+                                />
+                                <div class="absolute top-0 left-0 w-full h-full opacity-50 hover:opacity-65 transition-all bg-gradient-to-b from-[#8f9098] to-[#080808]" />
+                                <span class="absolute pointer-events-none right-0 bottom-0 mr-4 mb-4 block rounded-full border-2 backdrop-blur-sm bg-white/20 px-6 py-2 text-center font-body text-sm font-bold uppercase text-white md:text-md group-hover:bg-cyan-500/80 transition-colors">
+                                    VER PROYECTO
+                                </span>
+                            </div>
+                        </a>
+
+                        <div class="p-4 flex flex-col text-slate-800 dark:text-white justify-between backdrop-blur-sm bg-white/20 h-full transition-colors dark:bg-gray-800/30">
+                            <h3 class="text-xl dark:text-white font-semibold ">
+                                {title}
+                            </h3>
+                        </div>
+                    </div>
+                );
+            })
+        }
+    </section>
+</div>

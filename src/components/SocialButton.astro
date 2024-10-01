@@ -1,0 +1,17 @@
+---
+interface Props {
+    title: string;
+    clase?: string;
+}
+
+const { title, link , clase="bg-gray-500 hover:bg-gray-400" } = Astro.props;
+
+---
+
+<a
+    target="_blank"
+    href={link}
+    class=`w-8 h-8 flex items-center justify-center text-white rounded-md transition-colors ${clase}`
+>
+    <slot/>
+</a>
