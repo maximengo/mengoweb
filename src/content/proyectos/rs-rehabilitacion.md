@@ -6,4 +6,4 @@ img: 'rsrehabilitacion.PNG'
 url: 'https://rsrehabilitacion.com/'
 ---
 
-Pagina web realizada para **blackbconstrucciones**
+Pagina web realizada para **Rs Rehabilitación**

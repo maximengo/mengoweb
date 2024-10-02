@@ -6,4 +6,4 @@ img: 'comprodirecto.PNG'
 url: 'https://comprodirecto.com.ar/'
 ---
 
-Pagina web realizada para **blackbconstrucciones**
+Pagina web realizada para **Compro Directo**
