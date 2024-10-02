@@ -4,7 +4,7 @@ import NavLink from "../components/NavLink.astro";
 import DarkMode from "../components/DarkMode";
 ---
 
-<header class="sticky top-2 z-30">
+<header>
     <div
         class="border dark:border-white/10 rounded-lg bg-white dark:bg-gray-800 p-1.5 md:p-3 shadow-md text-slate-800 dark:text-white"
     >
@@ -67,7 +67,7 @@ import DarkMode from "../components/DarkMode";
 
                 <button
                     type="button"
-                    class="text-dark transition dark:text-white/70 lg:hidden"
+                    class="text-dark ml-2 transition dark:text-white/70 lg:hidden"
                     data-drawer-target="drawer-menu" data-drawer-show="drawer-menu" data-drawer-placement="right" aria-controls="drawer-menu"
                     data-hs-overlay="#mobile-menu"
                     aria-controls="mobile-menu"
