@@ -27,7 +27,7 @@ export default function DarkMode() {
             <button
                 type="button"
                 data-tooltip-target="tooltip-darkmode"
-                className="grid place-items-center py-2 w-10 h-10 rounded-lg text-slate-700 transition-colors bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
+                className="grid place-items-center py-2 w-8 h-8 md:w-10 md:h-10 rounded-lg text-slate-700 transition-colors bg-white hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
                 onClick={isDarkMode ? onClickLight : onClickDark}
             >
                 {isDarkMode ? <Sun /> : <Moon />}

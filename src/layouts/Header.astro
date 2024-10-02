@@ -4,21 +4,21 @@ import NavLink from "../components/NavLink.astro";
 import DarkMode from "../components/DarkMode";
 ---
 
-<header class="sticky top-2 z-40">
+<header class="sticky top-2 z-30">
     <div
-        class="border dark:border-white/10 rounded-lg bg-white dark:bg-gray-800 p-3 shadow-md text-slate-800 dark:text-white"
+        class="border dark:border-white/10 rounded-lg bg-white dark:bg-gray-800 p-1.5 md:p-3 shadow-md text-slate-800 dark:text-white"
     >
         <div class="flex items-center justify-between mx-auto px-1.5">
             <!-- Logo -->
             <a
                 href="/mengoweb/"
-                class="inline-flex items-center gap-3 text-2xl font-semibold"
+                class="inline-flex items-center gap-3 text-md md:text-2xl font-semibold"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
-                    class="h-6 w-6"
+                    class="w-4 h-4 md:h-6 md:w-6"
                 >
                     <path
                         fill="currentColor"
@@ -35,17 +35,20 @@ import DarkMode from "../components/DarkMode";
                 <Enlaces />
             </nav>
 
-            <div class="flex gap-2">
+            <div class="flex items-center gap-2">
                 <DarkMode client:load />
 
                 <NavLink
+                    href="#"
                     title="Contacto"
-                    clase="bg-orange-500 text-white hover:bg-orange-300 dark:hover:bg-orange-300"
-                    data={{ "data-modal-target": "contact-modal", "data-modal-toggle" : "contact-modal" }}
-                    
+                    clase="bg-orange-500 text-white hover:bg-orange-300 dark:hover:bg-orange-300 text-xs md:text-base"
+                    data={{
+                        "data-modal-target": "contact-modal",
+                        "data-modal-toggle": "contact-modal",
+                    }}
                 >
                     <svg
-                        class="w-6 h-6"
+                        class="w-4 h-4 md:w-6 md:h-6"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -65,13 +68,14 @@ import DarkMode from "../components/DarkMode";
                 <button
                     type="button"
                     class="text-dark transition dark:text-white/70 lg:hidden"
+                    data-drawer-target="drawer-menu" data-drawer-show="drawer-menu" data-drawer-placement="right" aria-controls="drawer-menu"
                     data-hs-overlay="#mobile-menu"
                     aria-controls="mobile-menu"
                     aria-label="Toggle navigation"
                 >
                     <span class="sr-only">Toggle Navigation</span>
                     <svg
-                        class="h-9 w-9 flex-shrink-0"
+                        class="w-6 h-6 md:h-9 md:w-9 flex-shrink-0"
                         fill="currentColor"
                         viewBox="0 0 16 16"
                     >

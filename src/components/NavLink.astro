@@ -1,11 +1,12 @@
 ---
-const { title, clase, data = {} } = Astro.props;
+const { title, clase, href ,data = {} } = Astro.props;
 ---
 
     <a
         {...data}   
-        href="/mengoweb/#"
-        class=`group inline-flex items-center gap-2 rounded-lg px-3 py-2 text-center font-medium hover:bg-cyan-500 dark:hover:bg-cyan-800 hover:text-white transition-colors  ${clase}`
+        data-drawer-hide="drawer-menu"
+        href=`/mengoweb/${href}`
+        class=`group inline-flex items-center gap-2 rounded-lg px-3 py-1.5 md:px-3 md:py-2 text-center font-medium hover:bg-cyan-500 dark:hover:bg-cyan-800 hover:text-white transition-colors  ${clase}`
     >
         <slot />
 

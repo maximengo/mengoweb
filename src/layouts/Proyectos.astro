@@ -3,9 +3,9 @@ import { getCollection } from "astro:content";
 const proyectos = await getCollection("proyectos");
 ---
 
-<div class="z-20">
+<div id="mis-trabajos" class="z-20">
     <h3 class="text-2xl font-bold mb-4 text-slate-800 dark:text-white flex justify-between">
-        Últimos proyectos
+        Últimos trabajos
     </h3>
     <section class="grid gap-4 lg:gap-6 grid-cols-1 lg:grid-cols-3">
         {
@@ -21,7 +21,7 @@ const proyectos = await getCollection("proyectos");
                                 </span>
                                 <img
                                     transition:name={`img-${slug}`}
-                                    src={`images/proyectos/${img}`}
+                                    src={`/mengoweb/images/proyectos/${img}`}
                                     class="h-full  w-full object-cover object-center border-b border-slate-700 dark:border-white"
                                     alt={`Foto del proyecto de ${title}`}
                                 />

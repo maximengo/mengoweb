@@ -4,7 +4,7 @@ const { cantidad = 1, clase = "", data = {} } = Astro.props;
 
 <div
     {...data}
-    class=`relative text-slate-800 border dark:border-white/10 dark:text-white rounded-lg backdrop-blur-sm bg-white/25 p-6 shadow-sm z-30 text-slate-800 flex flex-col dark:bg-gray-800/25 col-span-${cantidad} ${clase}`
+    class=`relative text-slate-800 border dark:border-white/10 dark:text-white rounded-lg backdrop-blur-sm bg-white/25 p-6 shadow-sm z-20 text-slate-800 flex flex-col dark:bg-gray-800/25 col-span-${cantidad} ${clase}`
 >
     <slot />
 </div>
