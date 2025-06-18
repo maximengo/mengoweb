@@ -5,10 +5,28 @@ import Moon from "./icons/Moon";
 export default function DarkMode() {
     const [isDarkMode, setIsDarkMode] = useState(false);
 
-    useEffect(() => {
-        const theme = localStorage.getItem('theme');
-        setIsDarkMode(theme === 'dark');
-    }, []);
+ useEffect(() => {
+    const theme = localStorage.getItem('theme');
+
+    if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+        setIsDarkMode(true);
+    } else if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+        setIsDarkMode(false);
+    } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDark) {
+            document.documentElement.classList.add('dark');
+            setIsDarkMode(true);
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            setIsDarkMode(false);
+            localStorage.setItem('theme', 'light');
+        }
+    }
+}, []);
 
     const onClickLight = () => {
         document.documentElement.classList.remove('dark');
