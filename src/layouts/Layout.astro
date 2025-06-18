@@ -148,17 +148,20 @@ import Enlaces from "../components/Enlaces.astro";
 					);
 			}
 		</style>
-		<script is:inline>
-			const theme = localStorage.getItem("theme");
+	<script is:inline>
+	(() => {
+		const theme = localStorage.getItem("theme");
+		const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+		const html = document.documentElement;
 
-			if (
-				theme === "dark" ||
-				(!theme &&
-					window.matchMedia("(prefers-color-scheme: dark)").matches)
-			) {
-				document.documentElement.classList.add("dark");
-			}
-		</script>
+		if (theme === "dark" || (!theme && prefersDark)) {
+			html.classList.add("dark");
+		} else {
+			html.classList.remove("dark");
+		}
+	})();
+</script>
+
 	</head>
 	<body
 		class="relative h-screen overflow-y-auto bg-white dark:bg-[#18191a] z-0"

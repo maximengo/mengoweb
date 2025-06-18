@@ -2,8 +2,6 @@
 title: 'BlackB Construcciones'
 cat: 'Web institucional'
 tags: 'Wordpress, HTML5, CSS'
-img: 'blackb.PNG'
+img: 'blackb.webp'
 url: 'https://blackbconstrucciones.com/'
 ---
-
-Pagina web realizada para **blackbconstrucciones**

@@ -2,8 +2,6 @@
 title: 'ComproDirecto'
 cat: 'E-commerce'
 tags: 'Wordpress, Woocommerce, Php'
-img: 'comprodirecto.PNG'
+img: 'comprodirecto.webp'
 url: 'https://comprodirecto.com.ar/'
 ---
-
-Pagina web realizada para **Compro Directo**

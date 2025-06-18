@@ -2,7 +2,7 @@
 title: 'VinitoBox'
 cat: 'E-commerce'
 tags: 'Wordpress, Woocommerce'
-img: 'vinitobox.PNG'
+img: 'vinitobox.webp'
 url: 'https://vinitobox.com'
 ---
 
