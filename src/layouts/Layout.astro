@@ -23,6 +23,17 @@ import Enlaces from "../components/Enlaces.astro";
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 
+		<meta name="robots" content="index, follow" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content="Maxi Mengoni Portfolio" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://maximengo.github.io/mengoweb/" />
+		<meta property="og:image" content="https://maximengo.github.io/mengoweb/images/maxi-mengoni.jpeg" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content="Maxi Mengoni Portfolio" />
+		<meta name="twitter:image" content="https://maximengo.github.io/mengoweb/images/maxi-mengoni.jpeg" />
+
 		<style>
 			body {
 				font-family: "Nunito Sans Variable", sans-serif;
