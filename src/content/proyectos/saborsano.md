@@ -1,6 +1,6 @@
 ---
 title: 'Saborsano'
-cat: 'Ecommerce'
+cat: 'E-commerce'
 tags: 'Wordpress'
 img: 'saborsano.webp'
 url: 'https://saborsano.com.ar/'
