@@ -249,7 +249,9 @@ import Enlaces from "../components/Enlaces.astro";
   src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"
   defer
 ></script>
-		<script>
+<script is:inline>
+  import AOS from "aos";
+
   AOS.init({
     once: true,
     duration: 700,
