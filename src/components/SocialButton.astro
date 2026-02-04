@@ -2,16 +2,18 @@
 interface Props {
     title: string;
     clase?: string;
+    aria?: string;
     link: string;
 }
 
-const { title, link , clase="bg-gray-500 hover:bg-gray-400" } = Astro.props;
-
+const { title, link , clase="bg-gray-500 hover:bg-gray-400", aria } = Astro.props;
 ---
 
 <a
     target="_blank"
+    rel="noopener noreferrer"
     href={link}
+    aria-label={aria ? aria : title}
     class=`w-8 h-8 flex items-center justify-center text-white rounded-md transition-colors ${clase}`
 >
     <slot/>
