@@ -1,14 +1,17 @@
 ---
 import Social from "../components/SocialButton.astro";
+import { Image } from "astro:assets";
+import yo from "@/images/yo.webp";
 ---
 
 <div id="sobre-mi" class="w-full h-80 overflow-hidden rounded-lg border border-slate-700/10">
-    <img
-        src="/images/yo.webp"
-        class="h-full w-full object-cover object-center"
-        alt="Foto de Maxi Mengoni"
-        fetchpriority="high"
-    />
+  <Image
+  src={yo}
+  alt="Foto de Maxi Mengoni"
+  widths={[300, 600, 900]}
+  sizes="(max-width: 640px) 300px, 600px"
+  class="h-full w-full object-cover object-center"
+/>
 </div>
 
 <div class="mt-6">
