@@ -187,6 +187,11 @@ import AOSInit from "../components/AOSInit.astro";
 				}
 			})();
 		</script>
+
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/aos@2.3.4/dist/aos.css"
+		/>
 	</head>
 	<body
 		class="relative min-h-screen max-w-full overflow-y-auto bg-white dark:bg-[#18191a] z-0"
@@ -257,6 +262,16 @@ import AOSInit from "../components/AOSInit.astro";
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"
 			defer></script>
-		<AOSInit client:load />
+		<script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				AOS.init({
+					once: true,
+					duration: 700,
+					easing: "ease-out-cubic",
+				});
+			});
+		</script>
 	</body>
 </html>
