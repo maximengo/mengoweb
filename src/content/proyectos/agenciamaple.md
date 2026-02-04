@@ -2,7 +2,7 @@
 title: 'Agencia Maple'
 cat: 'Web Institucional'
 tags: 'Wordpress'
-img: 'maple.webp'
+img: './maple.webp'
 url: 'https://agenciamaple.com'
 ---
 

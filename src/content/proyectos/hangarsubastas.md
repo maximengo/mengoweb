@@ -2,7 +2,7 @@
 title: 'Hangar Subastas'
 cat: 'Sistema'
 tags: 'Laravel, Tailwind'
-img: 'hangar.webp'
+img: './hangar.webp'
 url: 'https://hangarsubastas.com'
 ---
 

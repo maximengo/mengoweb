@@ -2,6 +2,6 @@
 title: 'Rs Rehabilitación'
 cat: 'Web institucional'
 tags: 'Wordpress'
-img: 'rsrehabilitacion.webp'
+img: './rsrehabilitacion.webp'
 url: 'https://rsrehabilitacion.com/'
 ---

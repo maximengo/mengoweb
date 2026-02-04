@@ -4,32 +4,44 @@ import { Image } from "astro:assets";
 import yo from "@/images/yo.webp";
 ---
 
-<div id="sobre-mi" class="w-full h-80 overflow-hidden rounded-lg border border-slate-700/10">
-  <Image
-  src={yo}
-  alt="Foto de Maxi Mengoni"
-  widths={[300, 600, 900]}
-  sizes="(max-width: 640px) 300px, 600px"
-  class="h-full w-full object-cover object-center"
-/>
+<div
+    id="sobre-mi"
+    class="w-full h-80 overflow-hidden rounded-lg border border-slate-700/10"
+>
+    <Image
+        src={yo}
+        alt="Foto de Maxi Mengoni"
+        widths={[300, 600, 900]}
+        sizes="(max-width: 640px) 300px, 600px"
+        class="h-full w-full object-cover object-center"
+    />
 </div>
 
 <div class="mt-6">
     <h1 class="text-xl md:text-2xl font-light mb-2 text-pretty">
-        ¡Hola! Soy <br> <strong class="font-bold">Maximiliano <span class="text-cyan-600">Mengo</span>ni.</strong
+        ¡Hola! Soy <br />
+        <strong class="font-bold"
+            >Maximiliano <span class="text-cyan-600">Mengo</span>ni.</strong
         >
     </h1>
     <p class="dark:text-gray-300 mb-2 text-sm">
-        <strong>Programador Full Stack </strong> orientado a páginas web, con más de 15 años creando soluciones efectivas que combinan diseño, desarrollo y funcionalidad.
+        <strong>Programador Full Stack </strong> orientado a páginas web, con más
+        de 15 años creando soluciones efectivas que combinan diseño, desarrollo y
+        funcionalidad.
     </p>
-    
+
     <hr class="my-4 border-gray-300 dark:border-gray-700" />
     <p class="dark:text-gray-300">
         Mendoza, <strong>Argentina</strong>.
     </p>
 </div>
 <div class="sociales flex gap-2 pt-3 mt-auto">
-    <Social link="https://www.linkedin.com/in/maximiliano-mengoni-2965ab4b/" aria="Perfil de LinkedIn de Maxi Mengoni" title="Linkedin" clase="bg-[#0077b5] hover:bg-[#369bd0]">
+    <Social
+        link="https://www.linkedin.com/in/maximiliano-mengoni-2965ab4b/"
+        aria="Perfil de LinkedIn de Maxi Mengoni"
+        title="Linkedin"
+        clase="bg-[#0077b5] hover:bg-[#369bd0]"
+    >
         <svg
             class="w-5 h-5"
             aria-hidden="true"
@@ -47,7 +59,11 @@ import yo from "@/images/yo.webp";
         </svg>
     </Social>
 
-    <Social link="mailto:mengo@hotmail.com.ar" aria="Correo de Maxi Mengoni" title="Email">
+    <Social
+        link="mailto:mengo@hotmail.com.ar"
+        aria="Correo de Maxi Mengoni"
+        title="Email"
+    >
         <svg
             class="w-5 h-5"
             aria-hidden="true"

@@ -2,6 +2,6 @@
 title: 'Montando Esperanzas'
 cat: 'Web Institucional'
 tags: 'Wordpress'
-img: 'montando.webp'
+img: './montando.webp'
 url: 'https://montandoesperanzas.com/'
 ---

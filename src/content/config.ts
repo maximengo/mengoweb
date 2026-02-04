@@ -1,13 +1,15 @@
 import { defineCollection, z } from "astro:content";
 
 const proyectos = defineCollection({
-    schema: z.object({
-        title: z.string(),
-        cat: z.string(),
-        tags: z.string(),
-        img: z.string(),
-        url: z.string().url(),
-    })
+  // Usamos esquema como función para que image() esté disponible
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      cat: z.string(),
+      tags: z.string(),
+      img: image(),       // 👈 aquí es el helper image()
+      url: z.string().url(),
+    }),
 });
 
-export const collections = {proyectos}
+export const collections = { proyectos };
