@@ -4,9 +4,9 @@ const proyectos = await getCollection("proyectos");
 ---
 
 <div id="mis-trabajos" class="z-20">
-    <h3 class="text-2xl font-bold mb-4 text-slate-800 dark:text-white flex justify-between">
+    <h2 class="text-2xl font-bold mb-4 text-slate-800 dark:text-white flex justify-between">
        Algunos de mis trabajos
-    </h3>
+    </h2>
     <section class="grid gap-4 lg:gap-6 grid-cols-2 lg:grid-cols-3">
         {
             proyectos.map((proyecto) => {
