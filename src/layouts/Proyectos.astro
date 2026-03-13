@@ -1,50 +1,308 @@
 ---
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
-const proyectos = await getCollection("proyectos");
+import Bloque from "../components/Bloque.astro";
+
+const proyectos = (await getCollection("proyectos")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 ---
 
-<div id="mis-trabajos" class="z-20">
-    <h2 class="text-2xl font-bold mb-4 text-slate-800 dark:text-white flex justify-between">
-       Algunos de mis trabajos
-    </h2>
-    <section class="grid gap-4 lg:gap-6 grid-cols-1 lg:grid-cols-3">
-        {
-            proyectos.map((proyecto) => {
-                const { slug, data } = proyecto;
-                const { title, img, cat } = data;
-                return (
-                    <div data-aos="fade-down" class="border border-gray-300   dark:border-gray-600 rounded-lg transition-all flex flex-col overflow-hidden shadow-sm">
-                        <a href={`/proyecto/${slug}`} class="group">
-                            <div class="max-w-2xl group mx-auto relative">
-                                <span class="bg-blue-200 absolute top-3 left-3 z-20 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
-                                    {cat}
-                                </span>
-                             <Image
-                transition:name={`img-${slug}`}
-                src={img}
-                alt={`Foto del proyecto de ${title}`}
-                widths={[400, 600, 900]}
-                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 400px"
-                class="h-full md:h-48 w-full object-cover object-center border-b border-slate-700 dark:border-white"
-              />
-                                <div class="absolute top-0 left-0 w-full h-full opacity-50 hover:opacity-65 transition-all bg-gradient-to-b from-[#8f9098] to-[#080808]" />
-                                <span class="hidden absolute pointer-events-none right-0 bottom-0 mr-4 mb-4 md:block rounded-full border-2 backdrop-blur-sm bg-white/20 px-6 py-2 text-center font-body text-sm font-bold uppercase text-white md:text-md group-hover:bg-cyan-500/80 transition-colors">
-                                    VER PROYECTO
-                                </span>
-                            </div>
-                        </a>
+<div id="mis-trabajos">
+  <Bloque>
+    <div
+      class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b border-slate-200 dark:border-slate-800 pb-4"
+    >
+      <div>
+        <h2
+          class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white font-outfit"
+        >
+          Proyectos <span class="text-cyan-500">Destacados</span><span
+            class="text-cyan-500">.</span
+          >
+        </h2>
+        <p class="text-slate-500 dark:text-slate-400 mt-2 max-w-xl">
+          Una selección de mis trabajos más recientes en desarrollo web y
+          sistemas a medida, enfocados en performance y experiencia de usuario.
+        </p>
+      </div>
+    </div>
 
-                        <a href={`/proyecto/${slug}`} class="p-3 md:p-4 flex flex-col text-slate-800 dark:text-white hover:text-orange-500 dark:hover:text-cyan-500 justify-between backdrop-blur-sm bg-white/20 hover:bg-gray-200/20 h-full transition-colors dark:bg-gray-800/30 dark:hover:bg-gray-700/30">
-                        
-                            <h3 class="text-xs md:text-sm text-center md:text-left  font-bold  transition-colors ">
-                                {title}
-                            </h3>
-                            
-                        </a>
-                    </div>
-                );
-            })
+    <div class="relative min-h-[600px] lg:min-h-[800px]">
+      <!-- Skeleton Grid -->
+      <div
+        id="projects-skeleton"
+        class="absolute inset-0 grid gap-6 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pointer-events-none transition-opacity duration-300 z-0"
+      >
+        {
+          Array.from({ length: 6 }).map(() => (
+            <div class="flex flex-col h-full bg-slate-50/50 dark:bg-white/5 border border-slate-200/60 dark:border-white/5 rounded-3xl overflow-hidden animate-pulse">
+              <div class="aspect-[16/10] bg-slate-200 dark:bg-slate-900/60" />
+              <div class="p-6 flex flex-col gap-4">
+                <div class="h-6 w-3/4 bg-slate-200 dark:bg-slate-900/60 rounded-lg" />
+                <div class="mt-auto h-8 w-1/3 bg-slate-200 dark:bg-slate-900/60 rounded-lg" />
+              </div>
+            </div>
+          ))
         }
-    </section>
+      </div>
+
+      <section
+        id="projects-grid"
+        class="grid gap-6 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 transition-opacity duration-300 z-10 opacity-0 invisible h-0 pointer-events-none"
+      >
+        {
+          proyectos.map((proyecto, index) => {
+            const { slug, data } = proyecto;
+            const { title, img, cat } = data;
+            return (
+              <article
+                class="project-card group relative flex flex-col h-full bg-slate-50/50 dark:bg-white/5 border border-slate-200/60 dark:border-white/5 rounded-3xl overflow-hidden transition-all duration-500 hover:border-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/5"
+                data-page={Math.floor(index / 6) + 1}
+                style={index >= 6 ? "display: none;" : ""}
+              >
+                <a
+                  href={`/proyecto/${slug}`}
+                  class="block relative aspect-[16/10] overflow-hidden"
+                >
+                  <Image
+                    transition:name={`img-${slug}`}
+                    src={img}
+                    alt={`Foto del proyecto de ${title}`}
+                    widths={[400, 600]}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div class="absolute inset-0 bg-slate-950/20 group-hover:bg-transparent transition-colors duration-500" />
+
+                  <div class="absolute top-4 left-4">
+                    <span class="bg-white/90 dark:bg-slate-900/90 text-slate-900 dark:text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-xl backdrop-blur-md border border-white/20 shadow-sm">
+                      {cat}
+                    </span>
+                  </div>
+
+                  {data.tags && (
+                    <div class="absolute bottom-4 left-4 flex flex-wrap gap-1.5 pr-4">
+                      {data.tags.split(",").map((tag: string) => (
+                        <span class="text-[9px] font-bold uppercase tracking-tight px-2 py-1 rounded-lg bg-slate-900/60 dark:bg-white/10 text-white backdrop-blur-md border border-white/10">
+                          {tag.trim()}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </a>
+
+                <div class="p-6 flex flex-col flex-grow">
+                  <h3 class="text-xl font-bold text-slate-900 dark:text-white font-outfit mb-6 group-hover:text-cyan-500 transition-colors line-clamp-1">
+                    {title}
+                  </h3>
+
+                  <a
+                    href={`/proyecto/${slug}`}
+                    class="mt-auto inline-flex items-center text-xs font-bold text-slate-600 dark:text-slate-400 gap-2 group/link hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors uppercase tracking-widest"
+                  >
+                    Ver detalles
+                    <div class="w-8 h-8 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center group-hover/link:border-cyan-500 group-hover/link:bg-cyan-500 group-hover/link:text-white transition-all">
+                      <svg
+                        class="w-4 h-4 transition-transform group-hover/link:translate-x-0.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2.5"
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </div>
+                  </a>
+                </div>
+              </article>
+            );
+          })
+        }
+      </section>
+    </div>
+
+    {
+      proyectos.length > 6 && (
+        <div class="flex justify-center items-center gap-3 pt-8 border-t border-slate-100 dark:border-white/5">
+          <button
+            id="prev-page"
+            class="p-2 rounded-xl border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+            disabled
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+
+          <div id="pagination-numbers" class="flex gap-2">
+            {Array.from({ length: Math.ceil(proyectos.length / 6) }).map(
+              (_, i) => (
+                <button
+                  class={`page-number w-10 h-10 rounded-xl font-bold text-sm transition-all border ${i === 0 ? "bg-cyan-500 border-cyan-500 text-white shadow-lg shadow-cyan-500/20" : "border-slate-200 dark:border-white/10 hover:border-cyan-500/50"}`}
+                  data-page={i + 1}
+                >
+                  {i + 1}
+                </button>
+              ),
+            )}
+          </div>
+
+          <button
+            id="next-page"
+            class="p-2 rounded-xl border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        </div>
+      )
+    }
+  </Bloque>
 </div>
+
+<script>
+  function initPagination() {
+    const cards = document.querySelectorAll(".project-card");
+    const grid = document.getElementById("projects-grid");
+    const skeletonGrid = document.getElementById("projects-skeleton");
+    const pageButtons = document.querySelectorAll(".page-number");
+    const prevBtn = document.getElementById(
+      "prev-page",
+    ) as HTMLButtonElement | null;
+    const nextBtn = document.getElementById(
+      "next-page",
+    ) as HTMLButtonElement | null;
+
+    if (!cards.length || !grid || !skeletonGrid) return;
+
+    let currentPage = 1;
+    const totalPages = Math.ceil(cards.length / 6);
+
+    const updateView = (page: number) => {
+      currentPage = page;
+
+      // 1. Show Skeletons and Fade Out Grid
+      grid.style.opacity = "0";
+      skeletonGrid.style.opacity = "1";
+
+      setTimeout(() => {
+        // 2. Clear old cards and prepare new ones (invisible)
+        cards.forEach((card) => {
+          const cardElement = card as HTMLElement;
+          if (parseInt(cardElement.dataset.page || "0") === page) {
+            cardElement.style.display = "flex";
+          } else {
+            cardElement.style.display = "none";
+          }
+        });
+
+        // 3. Fade Out Skeletons and Fade In Grid
+        setTimeout(() => {
+          skeletonGrid.style.opacity = "0";
+          grid.style.opacity = "1";
+        }, 300); // Simulate loading time for premium feel
+      }, 100);
+
+      // Update Buttons UI immediately for feedback
+      pageButtons.forEach((btn) => {
+        const btnElement = btn as HTMLElement;
+        if (parseInt(btnElement.dataset.page || "0") === page) {
+          btnElement.classList.add(
+            "bg-cyan-500",
+            "border-cyan-500",
+            "text-white",
+            "shadow-lg",
+            "shadow-cyan-500/20",
+          );
+          btnElement.classList.remove(
+            "border-slate-200",
+            "dark:border-white/10",
+          );
+        } else {
+          btnElement.classList.remove(
+            "bg-cyan-500",
+            "border-cyan-500",
+            "text-white",
+            "shadow-lg",
+            "shadow-cyan-500/20",
+          );
+          btnElement.classList.add("border-slate-200", "dark:border-white/10");
+        }
+      });
+
+      if (prevBtn) prevBtn.disabled = currentPage === 1;
+      if (nextBtn) nextBtn.disabled = currentPage === totalPages;
+
+      const section = document.getElementById("mis-trabajos");
+      if (section && page !== 1) {
+        setTimeout(() => {
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 150);
+      }
+    };
+
+    pageButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const page = parseInt((btn as HTMLElement).dataset.page || "1");
+        if (page !== currentPage) updateView(page);
+      });
+    });
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        if (currentPage > 1) updateView(currentPage - 1);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        if (currentPage < totalPages) updateView(currentPage + 1);
+      });
+    }
+
+    // Initial Reveal
+    setTimeout(() => {
+      if (skeletonGrid && grid) {
+        skeletonGrid.style.display = "none";
+        grid.classList.remove(
+          "opacity-0",
+          "invisible",
+          "h-0",
+          "pointer-events-none",
+        );
+        setTimeout(() => {
+          grid.classList.add("opacity-100");
+        }, 10);
+      }
+    }, 600);
+  }
+
+  initPagination();
+  document.addEventListener("astro:page-load", initPagination);
+</script>

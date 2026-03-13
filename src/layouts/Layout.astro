@@ -1,372 +1,291 @@
 ---
+import "@fontsource-variable/inter";
+import "@fontsource-variable/outfit";
+
 interface Props {
-	title: string;
+  title: string;
+  description?: string;
+  image?: string;
 }
 
-const { title } = Astro.props;
+const {
+  title,
+  description = "Portfolio de Maxi Mengoni, desarrollador web especializado en Astro, Laravel y WordPress. Creando soluciones digitales de alto impacto.",
+  image = "/images/yo.webp",
+} = Astro.props;
 
-import "@fontsource-variable/nunito-sans";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 import Header from "../layouts/Header.astro";
 import Footer from "../layouts/Footer.astro";
 import Contacto from "../components/Contacto.astro";
 import Enlaces from "../components/Enlaces.astro";
+import { ViewTransitions } from "astro:transitions";
 
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Maxi Mengoni",
+  url: "https://mengo.com.ar",
+  image: "https://mengo.com.ar/images/yo.webp",
+  sameAs: ["https://www.linkedin.com/in/maximiliano-mengoni-2965ab4b/"],
+  jobTitle: "Full Stack Developer",
+  description:
+    "Programador Full Stack especializado en soluciones web de alto rendimiento.",
+};
 ---
 
 <!doctype html>
 <html class="scroll-smooth scroll-py-28" lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<meta
-			name="description"
-			content="Portfolio de Maxi Mengoni, desarrollador web especializado en Astro, Laravel y WordPress. Proyectos, contacto y servicios."
-		/>
-		<meta name="viewport" content="width=device-width" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
 
-		<link
-			rel="apple-touch-icon-precomposed"
-			sizes="57x57"
-			href="/images/favicon/apple-touch-icon-57x57.png"
-		/>
-		<link
-			rel="apple-touch-icon-precomposed"
-			sizes="114x114"
-			href="/images/favicon/apple-touch-icon-114x114.png"
-		/>
-		<link
-			rel="apple-touch-icon-precomposed"
-			sizes="72x72"
-			href="/images/favicon/apple-touch-icon-72x72.png"
-		/>
-		<link
-			rel="apple-touch-icon-precomposed"
-			sizes="144x144"
-			href="/images/favicon/apple-touch-icon-144x144.png"
-		/>
-		<link
-			rel="apple-touch-icon-precomposed"
-			sizes="60x60"
-			href="/images/favicon/apple-touch-icon-60x60.png"
-		/>
-		<link
-			rel="apple-touch-icon-precomposed"
-			sizes="120x120"
-			href="/images/favicon/apple-touch-icon-120x120.png"
-		/>
-		<link
-			rel="apple-touch-icon-precomposed"
-			sizes="76x76"
-			href="/images/favicon/apple-touch-icon-76x76.png"
-		/>
-		<link
-			rel="apple-touch-icon-precomposed"
-			sizes="152x152"
-			href="/images/favicon/apple-touch-icon-152x152.png"
-		/>
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="robots" content="index, follow" />
 
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="196x196"
-			href="/images/favicon/favicon-196x196.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="96x96"
-			href="/images/favicon/favicon-96x96.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="32x32"
-			href="/images/favicon/favicon-32x32.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="16x16"
-			href="/images/favicon/favicon-16x16.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="128x128"
-			href="/images/favicon/favicon-128.png"
-		/>
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.url)} />
 
-		<meta name="application-name" content="Mengo" />
-		<meta name="msapplication-TileColor" content="#FFFFFF" />
-		<meta
-			name="msapplication-TileImage"
-			content="/images/favicon/mstile-144x144.png"
-		/>
-		<meta
-			name="msapplication-square70x70logo"
-			content="/images/favicon/mstile-70x70.png"
-		/>
-		<meta
-			name="msapplication-square150x150logo"
-			content="/images/favicon/mstile-150x150.png"
-		/>
-		<meta
-			name="msapplication-wide310x150logo"
-			content="/images/favicon/mstile-310x150.png"
-		/>
-		<meta
-			name="msapplication-square310x310logo"
-			content="/images/favicon/mstile-310x310.png"
-		/>
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+    <!-- JSON-LD -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(personSchema)}
+    />
 
-		<meta name="robots" content="index, follow" />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content="Portfolio de Maxi Mengoni, desarrollador web especializado en Astro, Laravel y WordPress. Proyectos, contacto y servicios." />
-		<meta property="og:type" content="website" />
-		<meta
-			property="og:image"
-			content="https://mengo.com.ar/images/yo.webp"
-		/>
-		<meta property="og:url" content="https://mengo.com.ar" />
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content={title} />
-		<meta name="twitter:description" content="Portfolio de Maxi Mengoni, desarrollador web especializado en Astro, Laravel y WordPress. Proyectos, contacto y servicios." />
-		<meta
-			name="twitter:image"
-			content="https://mengo.com.ar/images/yo.webp"
-		/>
+    <style is:global>
+      :root {
+        --accent: 0, 191, 255;
+        --accent-gradient: linear-gradient(
+          45deg,
+          rgb(var(--accent)),
+          #ffa500 30%,
+          white 60%
+        );
+      }
+      html {
+        font-family: "Inter Variable", sans-serif;
+        background-color: #f8fafc;
+        color: #1e293b;
+        scrollbar-gutter: stable;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Outfit Variable", sans-serif;
+      }
+      html.dark {
+        background-color: #000000;
+        color: #f1f5f9;
+      }
 
-		<style>
-			body {
-				font-family: "Nunito Sans Variable", sans-serif;
-			}
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #e2e8f0;
+        border-radius: 10px;
+        border: 3px solid transparent;
+        background-clip: content-box;
+      }
+      html.dark ::-webkit-scrollbar-thumb {
+        background: #1e293b;
+        border: 3px solid transparent;
+        background-clip: content-box;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: #cbd5e1;
+      }
+      html.dark ::-webkit-scrollbar-thumb:hover {
+        background-color: #334155;
+      }
 
-			.bg {
-				position: fixed;
-				top: 0px;
-				left: 0px;
-				width: 100%;
-				height: 100%;
-				opacity: 0.03;
-				background-image:
-					linear-gradient(
-						30deg,
-						#18191a 12%,
-						transparent 12.5%,
-						transparent 87%,
-						#18191a 87.5%,
-						#18191a
-					),
-					linear-gradient(
-						150deg,
-						#18191a 12%,
-						transparent 12.5%,
-						transparent 87%,
-						#18191a 87.5%,
-						#18191a
-					),
-					linear-gradient(
-						30deg,
-						#18191a 12%,
-						transparent 12.5%,
-						transparent 87%,
-						#18191a 87.5%,
-						#18191a
-					),
-					linear-gradient(
-						150deg,
-						#18191a 12%,
-						transparent 12.5%,
-						transparent 87%,
-						#18191a 87.5%,
-						#18191a
-					),
-					linear-gradient(
-						60deg,
-						#18191a77 25%,
-						transparent 25.5%,
-						transparent 75%,
-						#18191a77 75%,
-						#18191a77
-					),
-					linear-gradient(
-						60deg,
-						#18191a77 25%,
-						transparent 25.5%,
-						transparent 75%,
-						#18191a77 75%,
-						#18191a77
-					);
-				background-size: 48px 84px;
-				background-position:
-					0 0,
-					0 0,
-					24px 42px,
-					24px 42px,
-					0 0,
-					24px 42px;
-			}
+      /* Selection */
+      ::selection {
+        background-color: rgba(6, 182, 212, 0.2);
+        color: #0891b2;
+      }
+      html.dark ::selection {
+        background-color: rgba(6, 182, 212, 0.3);
+        color: #22d3ee;
+      }
+    </style>
 
-			.dark .bg {
-				opacity: 0.5;
-				z-index: 10;
-				pointer-events: none;
+    <script is:inline>
+      const applyTheme = () => {
+        const theme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        if (theme === "dark" || (!theme && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      };
 
-				background-image:
-					linear-gradient(
-						30deg,
-						#1c1e22 12%,
-						transparent 12.5%,
-						transparent 87%,
-						#1c1e22 87.5%,
-						#1c1e22
-					),
-					linear-gradient(
-						150deg,
-						#1c1e22 12%,
-						transparent 12.5%,
-						transparent 87%,
-						#1c1e22 87.5%,
-						#1c1e22
-					),
-					linear-gradient(
-						30deg,
-						#1c1e22 12%,
-						transparent 12.5%,
-						transparent 87%,
-						#1c1e22 87.5%,
-						#1c1e22
-					),
-					linear-gradient(
-						150deg,
-						#1c1e22 12%,
-						transparent 12.5%,
-						transparent 87%,
-						#1c1e22 87.5%,
-						#1c1e22
-					),
-					linear-gradient(
-						60deg,
-						rgba(28, 30, 34, 0.5) 25%,
-						transparent 25.5%,
-						transparent 75%,
-						rgba(28, 30, 34, 0.5) 75%,
-						rgba(28, 30, 34, 0.5)
-					),
-					linear-gradient(
-						60deg,
-						rgba(28, 30, 34, 0.5) 25%,
-						transparent 25.5%,
-						transparent 75%,
-						rgba(28, 30, 34, 0.5) 75%,
-						rgba(28, 30, 34, 0.5)
-					);
-			}
-		</style>
-		<script is:inline>
-			(() => {
-				const theme = localStorage.getItem("theme");
-				const prefersDark = window.matchMedia(
-					"(prefers-color-scheme: dark)",
-				).matches;
-				const html = document.documentElement;
+      applyTheme();
+      document.addEventListener("astro:after-swap", applyTheme);
+    </script>
 
-				if (theme === "dark" || (!theme && prefersDark)) {
-					html.classList.add("dark");
-				} else {
-					html.classList.remove("dark");
-				}
-			})();
-		</script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <ViewTransitions />
+  </head>
+  <body
+    class="relative text-slate-900 dark:text-slate-100 selection:bg-cyan-500/30"
+  >
+    <!-- Dynamic Premium Background (Mesh Gradient) -->
+    <div
+      class="fixed inset-0 -z-10 h-full w-full overflow-hidden bg-slate-100 dark:bg-black"
+    >
+      <!-- Spot 1: Cyan -->
+      <div
+        class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-500/10 dark:bg-cyan-600/5 blur-[120px] animate-blob"
+      >
+      </div>
+      <!-- Spot 2: Blue -->
+      <div
+        class="absolute top-[20%] right-[-5%] w-[40%] h-[60%] rounded-full bg-blue-600/10 dark:bg-blue-700/5 blur-[130px] animate-blob [animation-delay:2000ms]"
+      >
+      </div>
+      <!-- Spot 3: Indigo/Slate -->
+      <div
+        class="absolute bottom-[-10%] left-[20%] w-[45%] h-[45%] rounded-full bg-indigo-500/10 dark:bg-slate-900/10 blur-[110px] animate-blob [animation-delay:4000ms]"
+      >
+      </div>
+      <!-- Spot 4: Subtle Cyan -->
+      <div
+        class="absolute top-[40%] right-[30%] w-[30%] h-[30%] rounded-full bg-cyan-300/5 dark:bg-cyan-950/5 blur-[100px] animate-blob [animation-delay:3000ms]"
+      >
+      </div>
 
-		<link
-			rel="stylesheet"
-			href="https://unpkg.com/aos@2.3.4/dist/aos.css"
-		/>
-	</head>
-	<body
-		class="relative min-h-screen max-w-full overflow-y-auto bg-white dark:bg-[#18191a] z-0"
-	>
-		<div class="bg"></div>
-		<div class="mx-auto max-w-screen-xl my-4 px-6 sticky top-2 z-30">
-			<Header />
-		</div>
+      <!-- Vignette Overlay -->
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-200/20 dark:to-black/40"></div>
 
-		<div
-			class="mx-auto w-full grid grid-cols-1 max-w-screen-xl overflow-x-hidden justify-between px-6 gap-6"
-		>
-			<slot />
-			<Footer />
-		</div>
+      <!-- Subtle Overlay Grid -->
+      <div
+        class="absolute inset-0 bg-[radial-gradient(#00000005_1px,transparent_1px)] [background-size:32px_32px] dark:bg-[radial-gradient(#ffffff03_1px,transparent_1px)]"
+      >
+      </div>
+    </div>
 
-		<Contacto />
+    <div class="mx-auto max-w-screen-xl my-4 px-6 sticky top-4 z-50">
+      <Header />
+    </div>
 
-		<div
-			id="drawer-menu"
-			class="fixed top-0 right-0 z-40 h-screen max-w-48 p-4 overflow-y-auto transition-transform translate-x-full bg-white w-80 dark:bg-gray-800"
-			tabindex="-1"
-			aria-labelledby="drawer-right-label"
-		>
-			<h5
-				id="drawer-right-label"
-				class="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400"
-			>
-				<svg
-					class="w-4 h-4 me-2.5"
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					fill="currentColor"
-					viewBox="0 0 20 20"
-				>
-					<path
-						d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
-					></path>
-				</svg>Menu
-			</h5>
-			<button
-				type="button"
-				data-drawer-hide="drawer-menu"
-				aria-controls="drawer-menu"
-				class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
-			>
-				<svg
-					class="w-3 h-3"
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 14 14"
-				>
-					<path
-						stroke="currentColor"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"></path>
-				</svg>
-				<span class="sr-only">Close menu</span>
-			</button>
-			<div class="flex flex-col gap-4 dark:text-white">
-				<Enlaces />
-			</div>
-		</div>
+    <main
+      class="mx-auto w-full max-w-screen-xl px-6 gap-4 lg:gap-6 flex flex-col pb-20 mt-4 lg:mt-6"
+    >
+      <slot />
+      <Footer />
+    </main>
 
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"
-			defer></script>
-		<script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+    <Contacto />
 
-		<script>
-			document.addEventListener("DOMContentLoaded", function () {
-				AOS.init({
-					once: true,
-					duration: 700,
-					easing: "ease-out-cubic",
-				});
-			});
-		</script>
-	</body>
+    <!-- Full Screen Mobile Menu -->
+    <div
+      id="drawer-menu"
+      class="fixed top-0 right-0 z-[60] h-screen w-full p-8 overflow-hidden transition-transform translate-x-full bg-white/95 dark:bg-slate-950/98 backdrop-blur-2xl flex flex-col"
+      tabindex="-1"
+    >
+      <div class="flex items-center justify-between mb-8">
+        <h5 class="text-2xl font-bold font-outfit">
+          Mengo<span class="text-cyan-500">Dev</span>
+        </h5>
+        <button
+          type="button"
+          data-drawer-hide="drawer-menu"
+          class="p-3 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white transition-all active:scale-90 shadow-sm"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.5"
+              d="M6 18L18 6M6 6l12 12"></path></svg
+          >
+        </button>
+      </div>
+
+      <div class="flex-grow flex flex-col justify-center items-center">
+        <nav class="flex flex-col items-center gap-10 text-3xl">
+          <Enlaces />
+          
+          <div class="pt-10 border-t border-slate-200 dark:border-white/10 w-full min-w-[240px]">
+             <button
+              type="button"
+              data-modal-target="contact-modal"
+              data-modal-toggle="contact-modal"
+              data-drawer-hide="drawer-menu"
+              class="flex w-full items-center justify-center gap-3 bg-cyan-600 text-white px-6 py-5 rounded-3xl font-bold text-xl transition-all shadow-xl shadow-cyan-500/20 active:scale-95"
+            >
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.57 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+              </svg>
+              <span>Hablemos</span>
+            </button>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
+      defer></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script is:inline>
+      const initMenu = () => {
+        if (typeof initFlowbite === 'function') {
+          initFlowbite();
+        }
+
+        const drawerLinks = document.querySelectorAll('#drawer-menu a, #drawer-menu button[data-modal-target]');
+        drawerLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            const closeBtn = document.querySelector('[data-drawer-hide="drawer-menu"]');
+            if (closeBtn) {
+              setTimeout(() => {
+                (closeBtn as any).click();
+              }, 100);
+            }
+          });
+        });
+      };
+
+      document.addEventListener('astro:page-load', initMenu);
+      document.addEventListener('astro:after-swap', initMenu);
+    </script>
+  </body>
 </html>

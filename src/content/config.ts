@@ -9,6 +9,7 @@ const proyectos = defineCollection({
       tags: z.string(),
       img: image(),       // 👈 aquí es el helper image()
       url: z.string().url(),
+      pubDate: z.date(),
     }),
 });
 

@@ -1,4 +1,5 @@
 ---
+pubDate: 2026-02-03
 title: 'Hangar Subastas'
 cat: 'Sistema'
 tags: 'Laravel, Tailwind'

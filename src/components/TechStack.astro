@@ -1,0 +1,161 @@
+---
+import Bloque from "./Bloque.astro";
+import Especialidades from "../layouts/Especialidades.astro";
+---
+
+<div class="w-full">
+  <Bloque clase="relative !overflow-visible">
+    <div
+      class="flex items-center justify-between mb-8 border-b border-slate-200 dark:border-slate-800 pb-4"
+    >
+      <h2 class="text-2xl md:text-3xl font-bold font-outfit">
+        Mi Stack <span class="text-cyan-500">Tecnológico</span><span
+          class="text-cyan-500">.</span
+        >
+      </h2>
+
+      <!-- Swiper Navigation -->
+      <div class="flex gap-1.5">
+        <button
+          class="swiper-button-prev-custom w-8 h-8 rounded-full border border-slate-200 dark:border-slate-800 flex items-center justify-center hover:bg-cyan-500 hover:text-white hover:border-cyan-500 transition-all active:scale-90 shadow-sm"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.5"
+              d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <button
+          class="swiper-button-next-custom w-8 h-8 rounded-full border border-slate-200 dark:border-slate-800 flex items-center justify-center hover:bg-cyan-500 hover:text-white hover:border-cyan-500 transition-all active:scale-90 shadow-sm"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.5"
+              d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Skeleton State -->
+    <div id="tech-skeleton" class="flex gap-4 overflow-hidden py-2 animate-pulse">
+        {Array.from({ length: 12 }).map(() => (
+            <div class="w-14 h-[58px] bg-slate-200 dark:bg-slate-900/60 rounded-2xl flex-shrink-0"></div>
+        ))}
+    </div>
+
+    <div id="tech-content" class="opacity-0 invisible h-0 pointer-events-none transition-opacity duration-500">
+        <div class="tech-swiper-container relative px-2 overflow-x-clip !overflow-y-visible -mx-2">
+            <Especialidades />
+        </div>
+    </div>
+  </Bloque>
+</div>
+
+<style is:global>
+  /* Base state: Force horizontal layout immediately to establish dynamic height */
+  .tech-swiper {
+    width: 100%;
+    opacity: 0; /* Hide briefly to prevent flash of raw icons */
+    transition: opacity 0.3s ease;
+  }
+
+  /* Force one row even before JS */
+  .tech-swiper:not(.swiper-initialized) .swiper-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow: hidden !important;
+    gap: 12px;
+    padding: 8px 0; /* Match swiper vertical padding */
+  }
+
+  .tech-swiper:not(.swiper-initialized) .swiper-slide {
+    flex: 0 0 auto;
+    width: auto !important;
+    min-width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Final state when Swiper is ready */
+  .tech-swiper.swiper-initialized {
+    opacity: 1;
+    overflow: visible !important;
+  }
+  
+  .tech-swiper.swiper-initialized .swiper-wrapper {
+    overflow: visible !important;
+  }
+</style>
+
+<script>
+  function revealTech() {
+    const skeleton = document.getElementById('tech-skeleton');
+    const content = document.getElementById('tech-content');
+    if (skeleton && content) {
+      skeleton.style.display = 'none';
+      content.classList.remove('opacity-0', 'invisible', 'h-0', 'pointer-events-none');
+      content.classList.add('opacity-100');
+    }
+  }
+
+  function initTechSwiper() {
+    // @ts-ignore
+    if (typeof Swiper !== "undefined") {
+      revealTech();
+      // @ts-ignore
+      const swiper = new Swiper(".tech-swiper", {
+        slidesPerView: 3,
+        spaceBetween: 10,
+        loop: true,
+        speed: 600,
+        observer: true,
+        observeParents: true,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next-custom",
+          prevEl: ".swiper-button-prev-custom",
+        },
+        breakpoints: {
+          480: { slidesPerView: 4, spaceBetween: 12 },
+          640: { slidesPerView: 6, spaceBetween: 12 },
+          768: { slidesPerView: 8, spaceBetween: 14 },
+          1024: { slidesPerView: 10, spaceBetween: 16 },
+        },
+      });
+    } else {
+      setTimeout(initTechSwiper, 100);
+    }
+  }
+
+  document.addEventListener("astro:page-load", initTechSwiper);
+  
+  // Initial load
+  if (document.readyState === 'complete') {
+    initTechSwiper();
+  } else {
+    window.addEventListener('load', initTechSwiper);
+  }
+</script>

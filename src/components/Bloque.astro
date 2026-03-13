@@ -3,8 +3,8 @@ const { cantidad = 1, clase = "", data = {} } = Astro.props;
 ---
 
 <div
-    {...data}
-    class=`relative border dark:border-white/10 dark:text-white rounded-lg backdrop-blur-sm bg-white/25 p-4 md:p-6 shadow-sm z-20 text-slate-800 flex flex-col dark:bg-gray-800/25 col-span-${cantidad} ${clase}`
+  {...data}
+  class=`relative border border-slate-200/60 dark:border-white/5 dark:text-white rounded-[2rem] backdrop-blur-xl bg-white/80 dark:bg-slate-900/50 p-6 md:p-10 shadow-sm z-10 text-slate-800 flex flex-col col-span-${cantidad} ${clase}`
 >
-    <slot />
+  <slot />
 </div>

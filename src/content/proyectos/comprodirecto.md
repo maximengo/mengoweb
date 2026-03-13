@@ -1,4 +1,5 @@
 ---
+pubDate: 2026-02-03
 title: 'ComproDirecto'
 cat: 'E-commerce'
 tags: 'Wordpress, Woocommerce, Php'

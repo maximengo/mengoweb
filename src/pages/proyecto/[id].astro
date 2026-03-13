@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import Bloque from "../../components/Bloque.astro";
 
 export async function getStaticPaths() {
     const proyectos = await getCollection("proyectos");
@@ -18,57 +17,111 @@ const { data, slug } = proyecto;
 const { title, cat, tags, img, url } = data;
 
 const { Content } = await render(proyecto);
+
+// SEO dynamic description from content
+const description = `Conoce más sobre ${title}, un proyecto de ${cat} desarrollado por Maxi Mengoni usando ${tags}.`;
 ---
 
-<Layout title=`${title} - MengoDev`>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 py-4">
-        <Bloque data={{ "data-aos": "fade-right" }}>
-            <a
-                class="absolute -top-4 -left-4 w-8 h-8 bg-orange-500 border-2 shadow-md border-white text-white rounded-full grid place-items-center"
-                href="/"
-                ><svg
-                    class="w-6 h-6 currentColor"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 12h14M5 12l4-4m-4 4 4 4"></path>
-                </svg>
-            </a>
-            <Image
-                transition:name={`img-${slug}`}
-                src={data.img}
-                alt={`Foto del proyecto de ${title}`}
-                widths={[300, 600, 900]}
-                sizes="(max-width: 640px) 300px, 600px"
-                class="w-full object-cover object-center border border-slate-700/50"
-            />
-        </Bloque>
+<Layout title={`${title} | Proyecto MengoDev`} description={description} image={img.src}>
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        <a 
+            href="/" 
+            class="w-fit flex items-center gap-3 px-5 py-2.5 bg-white dark:bg-slate-900/40 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-2xl text-slate-600 dark:text-slate-400 font-bold text-sm hover:text-cyan-500 hover:border-cyan-500 transition-all active:scale-95 group shadow-sm"
+        >
+            <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+            </svg>
+            Volver al inicio
+        </a>
 
-        <Bloque data={{ "data-aos": "fade-left" }}>
-            <h3 class="text-2xl mb-4 font-semibold">
-                {title}
-            </h3>
-            <div class="prose dark:prose-invert">
-                <Content />
+        <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3 text-sm">
+                <li class="inline-flex items-center">
+                    <a href="/" class="text-slate-500 hover:text-cyan-500 transition-colors flex items-center gap-2 font-medium">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                        Inicio
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-slate-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                        <span class="ml-1 text-slate-400 font-medium">Proyecto</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-slate-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                        <span class="ml-1 text-cyan-500 font-bold font-outfit">{title}</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Sidebar / Meta -->
+        <aside class="lg:col-span-4 space-y-6 order-2 lg:order-1">
+            <div data-aos="fade-right" class="bg-white dark:bg-slate-900/40 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-xl">
+                <div class="space-y-6">
+                    <div>
+                        <h1 class="text-3xl font-bold text-slate-900 dark:text-white font-outfit leading-tight mb-2">
+                            {title}
+                        </h1>
+                        <span class="inline-block bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+                            {cat}
+                        </span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex flex-col gap-2">
+                            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Tecnologías</h4>
+                            <div class="flex flex-wrap gap-2">
+                                {tags.split(',').map((tag) => (
+                                    <span class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-3 py-1 rounded-lg text-sm font-medium">
+                                        {tag.trim()}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div class="pt-6">
+                            <a
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href={`${url}`}
+                                class="w-full flex items-center justify-center gap-3 bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-6 rounded-2xl transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-orange-500/20"
+                            >
+                                Visitar Sitio Web
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="mt-auto grid place-items-end">
-                <a
-                    target="new"
-                    href={`${url}`}
-                    class="bg-blue-500 text-center hover:bg-blue-600 text-sm transition-colors text-white font-semibold py-2 px-4 rounded-md"
-                >
-                    Ir a la web
-                </a>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="lg:col-span-8 space-y-8 order-1 lg:order-2">
+            <div data-aos="zoom-in" class="relative group rounded-3xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800">
+                <Image
+                    transition:name={`img-${slug}`}
+                    src={data.img}
+                    alt={`Foto del proyecto de ${title}`}
+                    widths={[600, 900, 1200]}
+                    sizes="(max-width: 1024px) 100vw, 800px"
+                    class="w-full object-cover object-center aspect-video"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/20 to-transparent"></div>
             </div>
-        </Bloque>
+
+            {proyecto.body && proyecto.body.trim().length > 0 && (
+                <div data-aos="fade-up" class="bg-white dark:bg-slate-900/40 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-3xl p-8 md:p-12 shadow-xl">
+                    <div class="prose prose-lg dark:prose-invert max-w-none prose-headings:font-outfit prose-a:text-cyan-500 hover:prose-a:text-cyan-600 prose-img:rounded-2xl">
+                        <Content />
+                    </div>
+                </div>
+            )}
+        </div>
     </div>
 </Layout>
+
