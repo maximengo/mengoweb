@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
-import Bloque from "../components/Bloque.astro";
+
 
 const proyectos = (await getCollection("proyectos")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -9,181 +9,179 @@ const proyectos = (await getCollection("proyectos")).sort(
 ---
 
 <div id="mis-trabajos">
-  <Bloque>
-    <div
-      class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b border-slate-200 dark:border-slate-800 pb-4"
-    >
-      <div>
-        <h2
-          class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white font-outfit"
+  <div
+    class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b border-slate-200 dark:border-slate-800 pt-16 pb-8"
+  >
+    <div>
+      <h2
+        class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white font-outfit"
+      >
+        Proyectos <span class="text-cyan-500">Destacados</span><span
+          class="text-cyan-500">.</span
         >
-          Proyectos <span class="text-cyan-500">Destacados</span><span
-            class="text-cyan-500">.</span
-          >
-        </h2>
-        <p class="text-slate-500 dark:text-slate-400 mt-2 max-w-xl">
-          Una selección de mis trabajos más recientes en desarrollo web y
-          sistemas a medida, enfocados en performance y experiencia de usuario.
-        </p>
-      </div>
+      </h2>
+      <p class="text-slate-500 dark:text-slate-400 mt-2 max-w-xl">
+        Una selección de mis trabajos más recientes en desarrollo web y
+        sistemas a medida, enfocados en performance y experiencia de usuario.
+      </p>
+    </div>
+  </div>
+
+  <div class="relative min-h-[600px] lg:min-h-[800px]">
+    <!-- Skeleton Grid -->
+    <div
+      id="projects-skeleton"
+      class="absolute inset-0 grid gap-6 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pointer-events-none transition-opacity duration-300 z-0"
+    >
+      {
+        Array.from({ length: 6 }).map(() => (
+          <div class="flex flex-col h-full bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-white/5 rounded-3xl overflow-hidden animate-pulse">
+            <div class="aspect-[16/10] bg-slate-200 dark:bg-slate-900/60" />
+            <div class="p-6 flex flex-col gap-4">
+              <div class="h-6 w-3/4 bg-slate-200 dark:bg-slate-900/60 rounded-lg" />
+              <div class="mt-auto h-8 w-1/3 bg-slate-200 dark:bg-slate-900/60 rounded-lg" />
+            </div>
+          </div>
+        ))
+      }
     </div>
 
-    <div class="relative min-h-[600px] lg:min-h-[800px]">
-      <!-- Skeleton Grid -->
-      <div
-        id="projects-skeleton"
-        class="absolute inset-0 grid gap-6 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pointer-events-none transition-opacity duration-300 z-0"
-      >
-        {
-          Array.from({ length: 6 }).map(() => (
-            <div class="flex flex-col h-full bg-slate-50/50 dark:bg-white/5 border border-slate-200/60 dark:border-white/5 rounded-3xl overflow-hidden animate-pulse">
-              <div class="aspect-[16/10] bg-slate-200 dark:bg-slate-900/60" />
-              <div class="p-6 flex flex-col gap-4">
-                <div class="h-6 w-3/4 bg-slate-200 dark:bg-slate-900/60 rounded-lg" />
-                <div class="mt-auto h-8 w-1/3 bg-slate-200 dark:bg-slate-900/60 rounded-lg" />
-              </div>
-            </div>
-          ))
-        }
-      </div>
-
-      <section
-        id="projects-grid"
-        class="grid gap-6 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 transition-opacity duration-300 z-10 opacity-0 invisible h-0 pointer-events-none"
-      >
-        {
-          proyectos.map((proyecto, index) => {
-            const { slug, data } = proyecto;
-            const { title, img, cat } = data;
-            return (
-              <article
-                class="project-card group relative flex flex-col h-full bg-slate-50/50 dark:bg-white/5 border border-slate-200/60 dark:border-white/5 rounded-3xl overflow-hidden transition-all duration-500 hover:border-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/5"
-                data-page={Math.floor(index / 6) + 1}
-                style={index >= 6 ? "display: none;" : ""}
+    <section
+      id="projects-grid"
+      class="grid gap-6 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 transition-opacity duration-300 z-10 opacity-0 invisible h-0 pointer-events-none"
+    >
+      {
+        proyectos.map((proyecto, index) => {
+          const { slug, data } = proyecto;
+          const { title, img, cat } = data;
+          return (
+            <article
+              class="project-card group relative flex flex-col h-full bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-white/5 rounded-3xl overflow-hidden transition-all duration-500 hover:border-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/5"
+              data-page={Math.floor(index / 6) + 1}
+              style={index >= 6 ? "display: none;" : ""}
+            >
+              <a
+                href={`/proyecto/${slug}`}
+                class="block relative aspect-[16/10] overflow-hidden"
               >
+                <Image
+                  transition:name={`img-${slug}`}
+                  src={img}
+                  alt={`Foto del proyecto de ${title}`}
+                  widths={[400, 600]}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div class="absolute inset-0 bg-slate-950/20 group-hover:bg-transparent transition-colors duration-500" />
+
+                <div class="absolute top-4 left-4">
+                  <span class="bg-white/90 dark:bg-slate-900/90 text-slate-900 dark:text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-xl backdrop-blur-md border border-white/20 shadow-sm">
+                    {cat}
+                  </span>
+                </div>
+
+                {data.tags && (
+                  <div class="absolute bottom-4 left-4 flex flex-wrap gap-1.5 pr-4">
+                    {data.tags.split(",").map((tag: string) => (
+                      <span class="text-[9px] font-bold uppercase tracking-tight px-2 py-1 rounded-lg bg-slate-900/60 dark:bg-white/10 text-white backdrop-blur-md border border-white/10">
+                        {tag.trim()}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </a>
+
+              <div class="p-6 flex flex-col flex-grow">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white font-outfit mb-6 group-hover:text-cyan-500 transition-colors line-clamp-1">
+                  {title}
+                </h3>
+
                 <a
                   href={`/proyecto/${slug}`}
-                  class="block relative aspect-[16/10] overflow-hidden"
+                  class="mt-auto inline-flex items-center text-xs font-bold text-slate-600 dark:text-slate-400 gap-2 group/link hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors uppercase tracking-widest"
                 >
-                  <Image
-                    transition:name={`img-${slug}`}
-                    src={img}
-                    alt={`Foto del proyecto de ${title}`}
-                    widths={[400, 600]}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div class="absolute inset-0 bg-slate-950/20 group-hover:bg-transparent transition-colors duration-500" />
-
-                  <div class="absolute top-4 left-4">
-                    <span class="bg-white/90 dark:bg-slate-900/90 text-slate-900 dark:text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-xl backdrop-blur-md border border-white/20 shadow-sm">
-                      {cat}
-                    </span>
+                  Ver detalles
+                  <div class="w-8 h-8 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center group-hover/link:border-cyan-500 group-hover/link:bg-cyan-500 group-hover/link:text-white transition-all">
+                    <svg
+                      class="w-4 h-4 transition-transform group-hover/link:translate-x-0.5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2.5"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
                   </div>
-
-                  {data.tags && (
-                    <div class="absolute bottom-4 left-4 flex flex-wrap gap-1.5 pr-4">
-                      {data.tags.split(",").map((tag: string) => (
-                        <span class="text-[9px] font-bold uppercase tracking-tight px-2 py-1 rounded-lg bg-slate-900/60 dark:bg-white/10 text-white backdrop-blur-md border border-white/10">
-                          {tag.trim()}
-                        </span>
-                      ))}
-                    </div>
-                  )}
                 </a>
+              </div>
+            </article>
+          );
+        })
+      }
+    </section>
+  </div>
 
-                <div class="p-6 flex flex-col flex-grow">
-                  <h3 class="text-xl font-bold text-slate-900 dark:text-white font-outfit mb-6 group-hover:text-cyan-500 transition-colors line-clamp-1">
-                    {title}
-                  </h3>
-
-                  <a
-                    href={`/proyecto/${slug}`}
-                    class="mt-auto inline-flex items-center text-xs font-bold text-slate-600 dark:text-slate-400 gap-2 group/link hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors uppercase tracking-widest"
-                  >
-                    Ver detalles
-                    <div class="w-8 h-8 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center group-hover/link:border-cyan-500 group-hover/link:bg-cyan-500 group-hover/link:text-white transition-all">
-                      <svg
-                        class="w-4 h-4 transition-transform group-hover/link:translate-x-0.5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2.5"
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </div>
-                  </a>
-                </div>
-              </article>
-            );
-          })
-        }
-      </section>
-    </div>
-
-    {
-      proyectos.length > 6 && (
-        <div class="flex justify-center items-center gap-3 pt-8 border-t border-slate-100 dark:border-white/5">
-          <button
-            id="prev-page"
-            class="p-2 rounded-xl border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-            disabled
+  {
+    proyectos.length > 6 && (
+      <div class="flex justify-center items-center gap-3 pt-8 border-t border-slate-100 dark:border-white/5">
+        <button
+          id="prev-page"
+          class="p-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+          disabled
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-            <svg
-              class="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </button>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </button>
 
-          <div id="pagination-numbers" class="flex gap-2">
-            {Array.from({ length: Math.ceil(proyectos.length / 6) }).map(
-              (_, i) => (
-                <button
-                  class={`page-number w-10 h-10 rounded-xl font-bold text-sm transition-all border ${i === 0 ? "bg-cyan-500 border-cyan-500 text-white shadow-lg shadow-cyan-500/20" : "border-slate-200 dark:border-white/10 hover:border-cyan-500/50"}`}
-                  data-page={i + 1}
-                >
-                  {i + 1}
-                </button>
-              ),
-            )}
-          </div>
-
-          <button
-            id="next-page"
-            class="p-2 rounded-xl border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-          >
-            <svg
-              class="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </button>
+        <div id="pagination-numbers" class="flex gap-2">
+          {Array.from({ length: Math.ceil(proyectos.length / 6) }).map(
+            (_, i) => (
+              <button
+                class={`page-number w-10 h-10 rounded-xl font-bold text-sm transition-all border ${i === 0 ? "bg-cyan-500 border-cyan-500 text-white shadow-lg shadow-cyan-500/20" : "bg-white dark:bg-slate-900 border-slate-200 dark:border-white/10 hover:border-cyan-500/50"}`}
+                data-page={i + 1}
+              >
+                {i + 1}
+              </button>
+            ),
+          )}
         </div>
-      )
-    }
-  </Bloque>
+
+        <button
+          id="next-page"
+          class="p-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </button>
+      </div>
+    )
+  }
 </div>
 
 <script>
@@ -241,6 +239,8 @@ const proyectos = (await getCollection("proyectos")).sort(
             "shadow-cyan-500/20",
           );
           btnElement.classList.remove(
+            "bg-white",
+            "dark:bg-slate-900",
             "border-slate-200",
             "dark:border-white/10",
           );
@@ -252,7 +252,12 @@ const proyectos = (await getCollection("proyectos")).sort(
             "shadow-lg",
             "shadow-cyan-500/20",
           );
-          btnElement.classList.add("border-slate-200", "dark:border-white/10");
+          btnElement.classList.add(
+            "bg-white",
+            "dark:bg-slate-900",
+            "border-slate-200",
+            "dark:border-white/10",
+          );
         }
       });
 
