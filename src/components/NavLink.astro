@@ -6,7 +6,7 @@ const { title, clase = "", href ,data = {} } = Astro.props;
     {...data}   
     data-drawer-hide="drawer-menu"
     href={`${href}`}
-    class={`group relative inline-flex items-center gap-3 rounded-full px-[1.25em] py-[0.5em] font-bold transition-all duration-300 hover:text-cyan-600 dark:hover:text-cyan-400 active:scale-95 ${clase}`}
+    class={`group relative inline-flex items-center gap-3 rounded-full px-[1.25em] py-[0.5em] font-semibold transition-all duration-300 hover:text-cyan-600 dark:hover:text-cyan-400 active:scale-95 ${clase}`}
 >
     <!-- Background hover effect -->
     <span class="absolute inset-0 bg-cyan-500/0 group-hover:bg-cyan-500/10 rounded-full transition-all duration-300 scale-90 group-hover:scale-100 opacity-0 group-hover:opacity-100"></span>
